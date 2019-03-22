@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- This file was auto-generated from WSDL -->
+<!-- by the Apache Axis2 version: 1.6.4  Built on : Dec 28, 2015 (10:03:39 GMT) -->
+<serviceGroup>
+    <service name="MusicService">
+        <messageReceivers>
+            <messageReceiver mep="http://www.w3.org/ns/wsdl/in-out" class="music.MusicServiceMessageReceiverInOut"/>
+        </messageReceivers>
+        <parameter name="ServiceClass">music.MusicService</parameter>
+        <parameter name="useOriginalwsdl">true</parameter>
+        <parameter name="modifyUserWSDLPortAddress">true</parameter>
+        <operation name="getByComposer" mep="http://www.w3.org/ns/wsdl/in-out" namespace="urn:Music">
+            <actionMapping>urn:Music:musicPort:getByComposerRequest</actionMapping>
+            <outputActionMapping>urn:Music:musicPort:getByComposerResponse</outputActionMapping>
+            <faultActionMapping faultName="ErrorFault">urn:Music:musicPort:getByComposer:Fault:ErrorFault</faultActionMapping>
+            <faultActionMapping faultName="FaultMessage">urn:Music:musicPort:getByComposer:Fault:ErrorFault</faultActionMapping>
+            <faultActionMapping faultName="FaultMessage_Exception">urn:Music:musicPort:getByComposer:Fault:ErrorFault</faultActionMapping>
+            <faultActionMapping faultName="faultMessage">urn:getByComposerfaultMessage</faultActionMapping>
+        </operation>
+        <operation name="getByDisc" mep="http://www.w3.org/ns/wsdl/in-out" namespace="urn:Music">
+            <actionMapping>urn:Music:musicPort:getByDiscRequest</actionMapping>
+            <outputActionMapping>urn:Music:musicPort:getByDiscResponse</outputActionMapping>
+            <faultActionMapping faultName="ErrorFault">urn:Music:musicPort:getByDisc:Fault:ErrorFault</faultActionMapping>
+            <faultActionMapping faultName="FaultMessage">urn:Music:musicPort:getByDisc:Fault:ErrorFault</faultActionMapping>
+            <faultActionMapping faultName="FaultMessage_Exception">urn:Music:musicPort:getByDisc:Fault:ErrorFault</faultActionMapping>
+            <faultActionMapping faultName="faultMessage">urn:getByDiscfaultMessage</faultActionMapping>
+        </operation>
+    </service>
+</serviceGroup>

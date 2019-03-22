@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<definitions name="MusicDefinitions"
+ 	targetNamespace="urn:Music"
+ 	xmlns="http://schemas.xmlsoap.org/wsdl/"
+ 	xmlns:music="urn:Music"
+ 	xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+ 	xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+
+  <types>
+
+    <xsd:schema elementFormDefault="qualified"
+     targetNamespace="urn:Music"
+     xmlns="http://www.w3.org/2001/XMLSchema"
+     xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+     
+	<!--complex type for one entry in the database -->
+	<complexType name="trackDetail">
+		<sequence>
+			<element name="discNumber" type="xsd:int"/>
+			<element name="trackNumber" type="xsd:int"/>
+			<element name="composerName" type="xsd:string"/>
+			<element name="workName" type="xsd:string"/>
+			<element name="titleName" type="xsd:string"/>
+		</sequence>
+	</complexType>
+	
+	<!-- complex type for multiple entries in database -->
+	<complexType name="trackDetails">
+		<sequence>
+		<element minOccurs="0" maxOccurs="unbounded" name="detail" type="music:trackDetail"/>
+		</sequence>
+	</complexType>
+	
+	<element name="composerRequest" type="xsd:string"/>
+	<element name="discRequest" type="xsd:int"/>
+	<element name="result" type="music:trackDetails"/>
+	<element name="faultElement" type="xsd:string"/>
+    </xsd:schema>
+
+  </types>
+  
+  <!-- message for requesting by composer -->
+  <message name="requestComposer">
+  	<part name="composer" element="music:composerRequest"/>
+  </message>
+  
+  <!-- message for requesting by disc number -->
+  <message name="requestDiscNo">
+  	<part name="discNo" element="music:discRequest"/>
+  </message>
+  
+  <!-- message for result from query -->
+  <message name="resultMessage">
+  	<part name="resultInfo" element="music:result"/>
+  </message>
+  
+  <!-- message for potential errors -->
+  <message name="faultMessage">
+  	<part name="fault" element="music:faultElement"/>
+  </message>
+  
+ 
+  <portType name="musicPort">
+  	<operation name="getByComposer">
+  		<input message="music:requestComposer"/>
+  		<output message="music:resultMessage"/>
+  		<fault name="ErrorFault" message="music:faultMessage"/>
+  	</operation>
+  	
+  	<operation name="getByDisc">
+  		<input message="music:requestDiscNo"/>
+  		<output message="music:resultMessage"/>
+  		<fault name="ErrorFault" message="music:faultMessage"/>
+  	</operation>
+  </portType>
+  
+  <binding name="musicBinding" type="music:musicPort">
+  	<soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+  	<operation name="getByComposer">
+  		<soap:operation soapAction=""/>
+  		<input>
+  			<soap:body use="literal" namespace="urn:Music" 
+  			encodingStyle="http://schmeas.xmlsoap.org/soap/encoding/"/>
+  		</input>
+  		<output>
+  			<soap:body use="literal" namespace="urn:Music"
+  			encodingStyle="http:schmeas.xmlsoap.org/soap/encoding/"/>
+  		</output>
+  		<fault name="ErrorFault">
+  			<soap:fault name="ErrorFault" namespace="urn:Music" use="literal"
+  			encodingStyle="http:schmeas.xmlsoap.org/soap/encoding/"/>
+  		</fault>
+  	</operation>
+  	<operation name="getByDisc">
+  		<soap:operation soapAction=""/>
+  		<input>
+  			<soap:body use="literal" namespace="urn:Music" 
+  			encodingStyle="http://schmeas.xmlsoap.org/soap/encoding/"/>
+  		</input>
+  		<output>
+  			<soap:body use="literal" namespace="urn:Music"
+  			encodingStyle="http:schmeas.xmlsoap.org/soap/encoding/"/>
+  		</output>
+  		<fault name="ErrorFault">
+  			<soap:fault name="ErrorFault" use="literal" namespace="urn:Music"
+  			encodingStyle="http:schmeas.xmlsoap.org/soap/encoding/"/>
+  		</fault>
+  	</operation>
+  </binding>
+
+	<service name="MusicService">
+		<port name="MusicPort" binding="music:musicBinding">
+			<soap:address location="http://127.0.0.1:8080/axis2/services/MusicService"/>
+		</port>
+	</service>
+
+</definitions>

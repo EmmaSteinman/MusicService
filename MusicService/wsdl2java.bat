@@ -1,0 +1,1 @@
+K:\CSCU9YW\axis2-1.6.4\bin\wsdl2java.bat -s -ss -sd -uri Service.wsdl
